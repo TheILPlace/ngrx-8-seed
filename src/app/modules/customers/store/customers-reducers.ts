@@ -1,5 +1,5 @@
 import {
-  ActionReducerMap, createFeatureSelector, createSelector, Action,
+  ActionReducerMap, createFeatureSelector, createSelector, Action, combineReducers,
 
 } from '@ngrx/store';
 // import * as fromDataSelectors from './data/data.selectors';
@@ -10,16 +10,33 @@ export interface State {
   [fromData.dataFeatureKey]: fromData.State;
 }
 
-export const reducers: ActionReducerMap<State> = {
+// export const reducers: ActionReducerMap<State> = {
 
-  [fromData.dataFeatureKey]: fromData.reducer,
-};
+//   [fromData.dataFeatureKey]: fromData.reducer,
+// };
 
-export const INITIAL_CUSTOMERS_STATE: State = {
+/** Provide reducer in AoT-compilation happy way */
+export function reducers(state: State | undefined, action: Action) {
+  return combineReducers({
+    [fromData.dataFeatureKey]: fromData.reducer,
+  })(state, action);
+}
 
-  [fromData.dataFeatureKey]: fromData.initialState
-};
 
+
+
+
+// export const INITIAL_CUSTOMERS_STATE: State = {
+
+//   [fromData.dataFeatureKey]: fromData.initialState
+// };
+
+
+export function INITIAL_CUSTOMERS_STATE() {
+  return {
+    [fromData.dataFeatureKey]: fromData.initialState
+  };
+}
 // Selectors
 
 

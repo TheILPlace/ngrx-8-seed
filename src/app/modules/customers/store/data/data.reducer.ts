@@ -4,7 +4,7 @@ import { Customer } from '../../models/customer';
 import { cloneDeep } from 'lodash';
 import { produceOn } from '../../../../functions/store/produceOn';
 
-export const dataFeatureKey = 'ui';
+export const dataFeatureKey = 'data';
 
 export interface State {
   customers: Array<Customer>;
